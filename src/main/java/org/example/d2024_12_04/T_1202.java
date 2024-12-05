@@ -30,20 +30,16 @@ public class T_1202 {
 
         // 무게순 정렬
         Arrays.sort(backWeightArray);
-        Arrays.sort(gems, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] a, int[] b) {
-                return a[0] - b[0];
-            }
-        });
+        Arrays.sort(gems, Comparator.comparingInt(a -> a[0]));
 
         // 가격 높은순 저장
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer a, Integer b) {
-                return b - a;
-            }
-        });
+        long result = getResult(backWeightArray, gemCnt, gems);
+
+        System.out.println(result);
+    }
+
+    private static long getResult(int[] backWeightArray, int gemCnt, int[][] gems) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
         long result = 0;
         int gemIdx = 0;
@@ -60,7 +56,6 @@ public class T_1202 {
                 result += pq.poll();
             }
         }
-
-        System.out.println(result);
+        return result;
     }
 }
